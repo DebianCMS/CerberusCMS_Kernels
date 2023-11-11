@@ -17,7 +17,7 @@
  +  ------
  + Kernel File
  + ----------------------------------------------------------------------------------------------------------
- + - This File, Location	 : Master Root Directory => Root Directory => Cerberus.php
+ + - This File, Location	 : Master Root Directory => Root Directory => Kernel
  + - This File, Version		 : 0.7.1
  + - This File, Programming Code : Pure Pre-Hyper-Text-Post-Processor
  + - Programming Code Model	 : Procedural, Functional, Object Oriented :: Pre-Order Algebraic
@@ -1323,7 +1323,7 @@ $_GLOBAL_SYSTEM_SERVICES_MODULE_FILE_INTEGRITY								= "./System/Services/Integ
 
 if (file_exists($_GLOBAL_SYSTEM_SERVICES_MODULE_FILE_INTEGRITY)) {
 
-	include_once "$_GLOBAL_SYSTEM_SERVICES_MODULE_FILE_INTEGRITY";
+	//include_once "$_GLOBAL_SYSTEM_SERVICES_MODULE_FILE_INTEGRITY";
 
 } else {
 
@@ -5133,12 +5133,29 @@ $_KERNEL_APPLICATION_PANEL_ALIGNED_LEFT_FILE_VERSION						= $_DB_Query_Kernel_Ap
 $_KERNEL_APPLICATION_PANEL_ALIGNED_LEFT_ROW							= $_DB_Query_Kernel_Applications_Panel_Aligned_Left_Fetch_Array['application_panel_row'];
 $_KERNEL_APPLICATION_PANEL_ALIGNED_LEFT_TITLE							= $_DB_Query_Kernel_Applications_Panel_Aligned_Left_Fetch_Array['application_panel_title'];
 
-echo ($_THIS_THEME_APPLICATION_PANEL_1);
-echo ($_KERNEL_APPLICATION_PANEL_ALIGNED_LEFT_TITLE);
+if ($_GLOBAL_COOKIE_MEMBER_USERNAME && $_GLOBAL_COOKIE_MEMBER_PASSWORD != null && $_GLOBAL_MEMBER_ACCESS_LEVEL >= $_KERNEL_APPLICATION_PANEL_ALIGNED_LEFT_FILE_PERMISSION) {
 
-	include_once "./Applications/Panel/$_KERNEL_APPLICATION_PANEL_ALIGNED_LEFT_FILE_NAME.panel";
+		echo ($_THIS_THEME_APPLICATION_PANEL_1);
+		echo ($_KERNEL_APPLICATION_PANEL_ALIGNED_LEFT_TITLE);
 
-echo ($_THIS_THEME_APPLICATION_PANEL_2);
+			include_once "./Applications/Panel/$_KERNEL_APPLICATION_PANEL_ALIGNED_LEFT_FILE_NAME.panel";
+
+		echo ($_THIS_THEME_APPLICATION_PANEL_2);
+
+} else {
+
+if (!$_GLOBAL_COOKIE_MEMBER_USERNAME && $_KERNEL_APPLICATION_PANEL_ALIGNED_LEFT_FILE_PERMISSION <= 0) {
+
+		echo ($_THIS_THEME_APPLICATION_PANEL_1);
+		echo ($_KERNEL_APPLICATION_PANEL_ALIGNED_LEFT_TITLE);
+
+			include_once "./Applications/Panel/$_KERNEL_APPLICATION_PANEL_ALIGNED_LEFT_FILE_NAME.panel";
+
+		echo ($_THIS_THEME_APPLICATION_PANEL_2);
+
+} // [ + ] IF: Registered Member Account :: Credentials DO NOT Exist AND Appliction Panel Access Level Is: 0: Display :: Application :: Panel :: Aligned Left
+
+} // [ + ] IF: Registered Member Account :: Credentials Exist: Display :: Application :: Panel :: Aligned Left
 
 } // [ + ] WHILE: Retrieving :: Application Module :: Panel :: Entries :: Aligned Left :: From The Database Management System Server Database
 
@@ -5960,13 +5977,31 @@ $_KERNEL_APPLICATION_PANEL_ALIGNED_RIGHT_FILE_VERSION						= $_DB_Query_Kernel_A
 $_KERNEL_APPLICATION_PANEL_ALIGNED_RIGHT_ROW							= $_DB_Query_Kernel_Applications_Panel_Aligned_Right_Fetch_Array['application_panel_row'];
 $_KERNEL_APPLICATION_PANEL_ALIGNED_RIGHT_TITLE							= $_DB_Query_Kernel_Applications_Panel_Aligned_Right_Fetch_Array['application_panel_title'];
 
-echo ($_THIS_THEME_APPLICATION_PANEL_1);
+if ($_GLOBAL_COOKIE_MEMBER_USERNAME && $_GLOBAL_COOKIE_MEMBER_PASSWORD != null && $_GLOBAL_MEMBER_ACCESS_LEVEL >= $_KERNEL_APPLICATION_PANEL_ALIGNED_RIGHT_FILE_PERMISSION) {
 
-echo ($_KERNEL_APPLICATION_PANEL_ALIGNED_RIGHT_TITLE);
+			echo ($_THIS_THEME_APPLICATION_PANEL_1);
 
-	include_once "./Applications/Panel/$_KERNEL_APPLICATION_PANEL_ALIGNED_RIGHT_FILE_NAME.panel";
+			echo ($_KERNEL_APPLICATION_PANEL_ALIGNED_RIGHT_TITLE);
 
-echo ($_THIS_THEME_APPLICATION_PANEL_2);
+				include_once "./Applications/Panel/$_KERNEL_APPLICATION_PANEL_ALIGNED_RIGHT_FILE_NAME.panel";
+
+			echo ($_THIS_THEME_APPLICATION_PANEL_2);
+
+} else {
+
+if (!$_GLOBAL_COOKIE_MEMBER_USERNAME && $_KERNEL_APPLICATION_PANEL_ALIGNED_RIGHT_FILE_PERMISSION <= 0) {
+
+			echo ($_THIS_THEME_APPLICATION_PANEL_1);
+
+			echo ($_KERNEL_APPLICATION_PANEL_ALIGNED_RIGHT_TITLE);
+
+				include_once "./Applications/Panel/$_KERNEL_APPLICATION_PANEL_ALIGNED_RIGHT_FILE_NAME.panel";
+
+			echo ($_THIS_THEME_APPLICATION_PANEL_2);
+
+} // [ + ] IF: Registered Member Account :: Credentials DO NOT Exist AND Appliction Panel Access Level Is: 0: Display :: Application :: Panel :: Aligned Right
+
+} // [ + ] IF: Registered Member Account :: Credentials Exist: Display :: Application :: Panel :: Aligned Right
 
 } // [ + ] WHILE: Retrieving :: Application Module :: Panel :: Entries :: Aligned Right :: From The Database Management System Server Database
 
