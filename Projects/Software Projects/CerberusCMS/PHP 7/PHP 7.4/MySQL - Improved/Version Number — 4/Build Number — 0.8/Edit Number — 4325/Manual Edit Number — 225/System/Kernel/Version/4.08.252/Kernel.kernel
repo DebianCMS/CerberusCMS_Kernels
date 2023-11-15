@@ -5909,6 +5909,91 @@ if ($_GLOBAL_COOKIE_MEMBER_USERNAME && $_GLOBAL_COOKIE_MEMBER_PASSWORD != null &
  ============================================================================================================
  +
  +
+ + [ @ ] Application Modules :: Moderator-Level
+ +
+ +
+ ============================================================================================================
+*/
+
+/*
+ ============================================================================================================
+ +
+ + Directory :: Applications :: Moderation
+ +
+ ============================================================================================================
+*/
+
+/*
+ ============================================================================================================
+ + Find and Open :: Directory :: Applications :: Moderation
+ ============================================================================================================
+*/
+
+$_FIND_DIRECTORY_APPLICATIONS_MODERATION			= "./Applications/Moderator";
+$_READ_DIRECTORY_APPLICATIONS_MODERATION			= opendir($_FIND_DIRECTORY_APPLICATIONS_MODERATION);
+
+/*
+ ============================================================================================================
+ + WHILE: Reading :: Directory :: Applications :: Moderation
+ ============================================================================================================
+*/
+
+while (($_READ_DIRECTORY_APPLICATIONS_MODERATION = readdir($_READ_DIRECTORY_APPLICATIONS_MODERATION))) {
+
+/*
+ ============================================================================================================
+ + IF: Stop :: Exploit :: Local-File-Inclusion and Remote-File-Inclusion
+ ============================================================================================================
+*/
+
+if ($_READ_DIRECTORY_APPLICATIONS_MODERATION == "." || $_READ_DIRECTORY_APPLICATIONS_MODERATION == ".." || $_READ_DIRECTORY_APPLICATIONS_MODERATION == "index.php") {
+/**
+ * Do Nothing
+**/
+} else {
+
+/*
+ ============================================================================================================
+ + IF: Internal Application :: $_INTERNAL_APPLICATION_MODULE_MODERATOR :: Is: Application Module :: Moderation
+ ============================================================================================================
+*/
+
+if ($_GET[$_INTERNAL_APPLICATION_MODULE_MODERATOR] == "$_READ_DIRECTORY_APPLICATIONS_MODERATION") {
+
+/*
+ ============================================================================================================
+ + IF: Registered Member Account :: Access Level :: Is: >= 2
+ ============================================================================================================
+*/
+
+if ($_GLOBAL_COOKIE_MEMBER_USERNAME && $_GLOBAL_COOKIE_MEMBER_PASSWORD != null && $_GLOBAL_MEMBER_ACCESS_LEVEL >= 2) {
+
+										include_once "$_FIND_DIRECTORY_APPLICATIONS_MODERATION/$_READ_DIRECTORY_APPLICATIONS_MODERATION";
+
+} else {
+
+	echo ($_Message_Kernel_APPLICATION_MODERATION_APPLICATION_ACCESS_RESTRICTED_MODERATION);
+
+} // [ + ] IF: Registered Member Account :: Cookies :: Credentials :: Exist, are Valid and Registered Member Account Access-Level Is: Moderation, >= 2
+
+} // [ + ] IF: Internal Application: $_INTERNAL_APPLICATION_MODULE_MODERATOR :: Is: Activated
+
+} // [ + ] IF: Directory :: Applications :: Moderation IS Anything ELSE Except The Directory :: Applications :: Moderation
+
+} // [ + ] WHILE: Reading :: Directory :: Applications :: Moderation
+
+/*
+ ============================================================================================================
+ + Close :: Directory :: Applications :: Administration
+ ============================================================================================================
+*/
+
+closedir($_READ_DIRECTORY_APPLICATIONS_MODERATION);
+
+/*
+ ============================================================================================================
+ +
+ +
  + [ @ ] Application Modules :: Non-Registered Visitor, Registered Member Account and Moderator-Level
  +
  +
