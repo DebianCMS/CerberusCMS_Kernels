@@ -3973,9 +3973,28 @@ $DB_Query_Kernel_Authenticate_Check_Member_Account_Credentials_Member_UserName		
 $DB_Query_Kernel_Authenticate_Check_Member_Account_Credentials_Member_Electronic_Mail_Address			= $DB_Query_Kernel_Authenticate_Check_Member_Account_Credentials_Fetch_Array['member_electronic_mail_address'];
 $DB_Query_Kernel_Authenticate_Check_Member_Account_Credentials_Member_Password					= $DB_Query_Kernel_Authenticate_Check_Member_Account_Credentials_Fetch_Array['member_password'];
 $DB_Query_Kernel_Authenticate_Check_Member_Account_Credentials_Member_Status_Account_Locked			= $DB_Query_Kernel_Authenticate_Check_Member_Account_Credentials_Fetch_Array['member_status_account_locked'];
+$DB_Query_Kernel_Authenticate_Check_Member_Account_Credentials_Member_Status_Account_Active			= $DB_Query_Kernel_Authenticate_Check_Member_Account_Credentials_Fetch_Array['member_status_account_active'];
 $DB_Query_Kernel_Authenticate_Check_Member_Account_Credentials_Member_Attempt_Authentication			= $DB_Query_Kernel_Authenticate_Check_Member_Account_Credentials_Fetch_Array['member_attempt_authentication'];
 $DB_Query_Kernel_Authenticate_Check_Member_Account_Credentials_Member_Device_Authentication_MultiFactor_IP	= $DB_Query_Kernel_Authenticate_Check_Member_Account_Credentials_Fetch_Array['member_ip_address_authorized_multifactor'];
 
+/*
+ ============================================================================================================
+ + IF: Registered Member Account :: Status :: Account: Inactive
+ ============================================================================================================
+*/
+
+if ($DB_Query_Kernel_Authenticate_Check_Member_Account_Credentials_Member_Status_Account_Active >= "1") {
+
+/*
+ ============================================================================================================
+ + Dabatase Server Check: Registered Member Account Entry Is: Currently Active
+ ============================================================================================================
+*/
+
+	header("Location: ?$_INTERNAL_APPLICATION_MODULE_MEMBER=Login&Message=AccountActive&$_GLOBAL_SYSTEM_SECURITY_CACHE_CIRCUMVENTION_HTR_RANDOM_STRING_GENERATION");
+	exit;
+
+} else { //  ELSE: Registered Member Account :: Status :: Account: IS NOT Active, Proceed With Authentication
 
 /*
  ============================================================================================================
@@ -4465,6 +4484,8 @@ if ($DB_Query_Kernel_Member_Account_Update_Attempt_Authentication) {
 	exit;
 
 } // [ + ] IF: Registered Member Account :: Device :: Authentication :: Authorized :: Internet Protocol Address IS NOT Current Internet Protocol Address
+
+} // [ + ] IF: Registered Member Account :: Status :: Account: Active OR Inactive
 
 } // [ + ] IF: Registered Member Account Status Is: Locked, Redirect To Member Account Locked Status Message
 
