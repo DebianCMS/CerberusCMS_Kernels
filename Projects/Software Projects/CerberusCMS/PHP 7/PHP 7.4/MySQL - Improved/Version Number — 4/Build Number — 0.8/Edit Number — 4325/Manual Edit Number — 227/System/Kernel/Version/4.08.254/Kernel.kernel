@@ -3972,10 +3972,23 @@ $DB_Query_Kernel_Authenticate_Check_Member_Account_Credentials_Fetch_Array					=
 $DB_Query_Kernel_Authenticate_Check_Member_Account_Credentials_Member_UserName					= $DB_Query_Kernel_Authenticate_Check_Member_Account_Credentials_Fetch_Array['member_username'];
 $DB_Query_Kernel_Authenticate_Check_Member_Account_Credentials_Member_Electronic_Mail_Address			= $DB_Query_Kernel_Authenticate_Check_Member_Account_Credentials_Fetch_Array['member_electronic_mail_address'];
 $DB_Query_Kernel_Authenticate_Check_Member_Account_Credentials_Member_Password					= $DB_Query_Kernel_Authenticate_Check_Member_Account_Credentials_Fetch_Array['member_password'];
+$DB_Query_Kernel_Authenticate_Check_Member_Account_Credentials_Member_Status_Account_Active		= $DB_Query_Kernel_Authenticate_Check_Member_Account_Credentials_Fetch_Array['member_status_account_active'];
 $DB_Query_Kernel_Authenticate_Check_Member_Account_Credentials_Member_Status_Account_Locked			= $DB_Query_Kernel_Authenticate_Check_Member_Account_Credentials_Fetch_Array['member_status_account_locked'];
 $DB_Query_Kernel_Authenticate_Check_Member_Account_Credentials_Member_Attempt_Authentication			= $DB_Query_Kernel_Authenticate_Check_Member_Account_Credentials_Fetch_Array['member_attempt_authentication'];
 $DB_Query_Kernel_Authenticate_Check_Member_Account_Credentials_Member_Device_Authentication_MultiFactor_IP	= $DB_Query_Kernel_Authenticate_Check_Member_Account_Credentials_Fetch_Array['member_ip_address_authorized_multifactor'];
 
+/*
+ ============================================================================================================
+ + IF: Registered Member Account :: Status :: Active :: Redirect To Active Account Message
+ ============================================================================================================
+*/
+	
+if ($DB_Query_Kernel_Authenticate_Check_Member_Account_Credentials_Member_Status_Account_Active >= "1") {
+	
+	header("Location: ?$_INTERNAL_APPLICATION_MODULE_MEMBER=Login&Authorization=AccountActive&$_GLOBAL_SYSTEM_SECURITY_CACHE_CIRCUMVENTION_HTR_RANDOM_STRING_GENERATION");
+	exit;
+
+} else {
 
 /*
  ============================================================================================================
@@ -4461,8 +4474,10 @@ if ($DB_Query_Kernel_Member_Account_Update_Attempt_Authentication) {
  ============================================================================================================
 */
 
-	header("Location: ?$_INTERNAL_APPLICATION_MODULE_MEMBER=Login&Message=No_Member&$_GLOBAL_SYSTEM_SECURITY_CACHE_CIRCUMVENTION_HTR_RANDOM_STRING_GENERATION");
+	header("Location: ?$_INTERNAL_APPLICATION_MODULE_MEMBER=Login&Message=NoAccount&$_GLOBAL_SYSTEM_SECURITY_CACHE_CIRCUMVENTION_HTR_RANDOM_STRING_GENERATION");
 	exit;
+	
+} // [ + ] IF: Registered Member Account :: Status :: Active :: Is: 1, Active: Deny Authentication
 
 } // [ + ] IF: Registered Member Account :: Device :: Authentication :: Authorized :: Internet Protocol Address IS NOT Current Internet Protocol Address
 
@@ -4496,7 +4511,7 @@ if ($DB_Query_Kernel_Member_Account_Update_Attempt_Authentication) {
  ============================================================================================================
 */
 
-	header("Location: ?$_INTERNAL_APPLICATION_MODULE_MEMBER=Login&Message=No_Member&$_GLOBAL_SYSTEM_SECURITY_CACHE_CIRCUMVENTION_HTR_RANDOM_STRING_GENERATION");
+	header("Location: ?$_INTERNAL_APPLICATION_MODULE_MEMBER=Login&Message=NoAccount&$_GLOBAL_SYSTEM_SECURITY_CACHE_CIRCUMVENTION_HTR_RANDOM_STRING_GENERATION");
 	exit;
 
 } // [ + ] IF: Database Server Query :: Check :: Number of Rows :: Registered Member Account Based On Provided Credentials
